@@ -25,6 +25,9 @@
 - (NSTask *)createTaskForQuery
 {
   NSString *version = [_buildSettings[Xcode_SDK_NAME] stringByReplacingOccurrencesOfString:@"iphonesimulator" withString:@""];
+  if (_cpuType == CPU_TYPE_ANY) {
+    _cpuType = CpuTypeForTestBundleAtPath([self bundlePath]);
+  }
 
   return CreateTaskForSimulatorExecutable(_buildSettings[Xcode_SDK_NAME],
                                           _cpuType,
